@@ -4,10 +4,10 @@
 ### Members of Group 8:
 | Name                              | Student ID |
 | --------------------------------- | ---------- |
-| Tay Rivera Ralph Matthew          | 20718385   |
-| Tsen Zhi Jian                     | 20703544   |
-| Tasneem Ahmad Mirza Zahin Khan    | 20673433   |
-| Yasser Mokhtar Sallam Mahmoud     | 20574289   |
+| Ralph Matthew Tay Rivera          | 20718385   |
+| Zhi Jian Tsen                     | 20703544   |
+| Mirza Zahin Khan Tasneem Ahmad    | 20673433   |
+| Mahmoud Yasser Mokhtar Sallam     | 20574289   |
 
 ### Dataset, SDK, Ground Truth Folder
 - [SDK](https://numcmy-my.sharepoint.com/:u:/g/personal/kgztc_nottingham_edu_my/IQD9mmf33QhrS59_Q43ikhSOAYQQPvwBqKuXwz9gI_4bVjk?e=6OZFAs)
