@@ -18,7 +18,14 @@
 - [AI Declaration Form](https://forms.office.com/r/NyYm1vFuTr) - 15% Deduction if not submitted (Individually).
 - [Peer Assessment Form](https://moodle.nottingham.ac.uk/mod/peerwork/view.php?id=8769015) - 10% Deduction if not submitted (Individually).
 
-### Notes:
+### Submission Guidelines & Deadline:
 - Python code should be zipped.
 - 6-Page Conference Paper in PDF form, each additional pages result in a 5% deduction group-wide.
 - Official submission date is Friday (24/04/2026), however we have until Sunday (26/04/2026) to submit without any deduction in grades.
+- References are to be made in IEEE, use the provided IEEE reference or a [BibTeX > IEEE Converter](https://www.bibtex.com/c/bibtex-to-ieee-converter/) after acquiring the BibTeX format. 
+
+### Reference Links:
+- [Naturalize Dataset | GitHub](https://github.com/Mohamad-AbouAli/BloodCellDataset_11Types_Contains26534BloodCellImages)
+- [Naturalize Dataset | Kaggle](https://www.kaggle.com/datasets/mohamadabouali1/blood-cells-dataset-11-classes-26534-images)
+
+### Notes 
