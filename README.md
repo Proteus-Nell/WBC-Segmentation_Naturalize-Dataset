@@ -29,3 +29,4 @@
 - [Naturalize Dataset | Kaggle](https://www.kaggle.com/datasets/mohamadabouali1/blood-cells-dataset-11-classes-26534-images)
 
 ### Notes 
+- [Methodology](https://docs.google.com/document/d/1VenZA1XjZP3SekQ-6iAjmpiX-FknLspF6BAyd0LLF2o/edit?usp=sharing)
