@@ -29,3 +29,7 @@
 - [Naturalize Dataset | Kaggle](https://www.kaggle.com/datasets/mohamadabouali1/blood-cells-dataset-11-classes-26534-images)
 
 ### Notes 
+- Hematopoiesis = Process for Blood Cell Formation.
+- Granulopoiesis = Process for Granulocytes in Bone Marrow (WBC Subset).
+- White Bood Cells (WBC): Neutrophils, Eosinophils, Basophils, Lymphocytes, Andmonocytes.
+- Promyelocyte > Myelocyte > Metamyelocyte > Band > 
