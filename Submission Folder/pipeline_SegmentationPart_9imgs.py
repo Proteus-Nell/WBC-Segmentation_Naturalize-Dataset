@@ -110,8 +110,31 @@ def main():
     MEDIUM_DIR = BASE_OUT_DIR / "001 - Input Images" / "002 - Medium"
     HARD_DIR = BASE_OUT_DIR / "001 - Input Images" / "003 - Hard"
     
-    DATASET_PATH = r"C:\Users\User1\Documents\GitHub\IIP-G8\Dataset & Ground Truth\Naturalize Dataset\Naturalize Dataset"
-    DATASET_PATH = Path(DATASET_PATH)
+    required_subfolders = ["BA", "BNE", "EO", "ERB", "LY", "MMY", "MO", "MY", "PLT", "PMY", "SNE"]
+    
+    while True:
+        user_input = input(r"Enter DATASET_PATH: (i.e. ~\Naturalize Dataset\Naturalize Dataset)").strip()
+        if user_input.lower() == "mahmoud":
+            DATASET_PATH = r"C:\Users\User1\Documents\GitHub\IIP-G8\Dataset & Ground Truth\Naturalize Dataset\Naturalize Dataset"
+        else:
+            DATASET_PATH = user_input
+
+        DATASET_PATH = Path(DATASET_PATH).resolve() # Added .resolve() to ensure the path is absolute thanks to AI :P
+
+        if not DATASET_PATH.exists() or not DATASET_PATH.is_dir():
+            print(f"Error: The provided path '{DATASET_PATH}' does not exist or is not a directory.\nPlease try again.\n")
+            continue
+
+        missing_subfolders = []
+        for folder in required_subfolders:
+            if not (DATASET_PATH / folder).is_dir():
+                missing_subfolders.append(folder)
+
+        if missing_subfolders:
+            print(f"Error: The provided path must be a parent to the following missing subfolders: {', '.join(missing_subfolders)}\nPlease try again.\n")
+            continue
+            
+        break # Path is valid, exit the loop
 
     # Fill in the exact RELATIVE paths to the 9 images you selected!
     SELECTED_IMAGES = {
@@ -154,10 +177,10 @@ def main():
             
     end_time = time.time()
     
-    print(f"\nCompleted pipeline!")
+    print(f"\nCompleted pipeline!\n")
     print(f"Successfully processed {successful}/{total} valid images.")
-    print(f"Outputs neatly sorted into {BASE_OUT_DIR}")
-    print(f"Total Time taken: {end_time - start_time:.2f} seconds.")
+    print(f"Total Time taken: {end_time - start_time:.2f} seconds.\n")
+    print(f"Outputs neatly sorted into {BASE_OUT_DIR}\n")
 
 if __name__ == "__main__":
     main()

@@ -90,14 +90,34 @@ def main():
     SCRIPT_DIR = Path(__file__).resolve().parent
     
     # 2. Define Dataset and Output locations
-    DATASET_PATH = r"C:\Users\User1\Documents\GitHub\IIP-G8\Dataset & Ground Truth\Naturalize Dataset\Naturalize Dataset"
-    INPUT_DIR = Path(DATASET_PATH)
-    
     OUTPUT_DIR = SCRIPT_DIR / "student_mask"
+    required_subfolders = ["BA", "BNE", "EO", "ERB", "LY", "MMY", "MO", "MY", "PLT", "PMY", "SNE"]
     
-    if not INPUT_DIR.exists():
-        print(f"Error: Could not find input directory at {INPUT_DIR.absolute()}")
-        return
+    while True:
+        user_input = input(r"Enter DATASET_PATH: (i.e. ~\Naturalize Dataset\Naturalize Dataset)").strip()
+        if user_input.lower() == "mahmoud":
+            DATASET_PATH = r"C:\Users\User1\Documents\GitHub\IIP-G8\Dataset & Ground Truth\Naturalize Dataset\Naturalize Dataset"
+        else:
+            DATASET_PATH = user_input
+            
+        INPUT_DIR = Path(DATASET_PATH).resolve()        # Added the .resolve() thanks to AI while looking for possible issues after bug testing :P
+        
+        if not INPUT_DIR.exists() or not INPUT_DIR.is_dir():
+            print(f"Error: The provided path '{DATASET_PATH}' does not exist or is not a directory.")
+            print("Please try again or exit by pressing Ctrl+C\n")
+            continue
+
+        missing_subfolders = []
+        for folder in required_subfolders:
+            if not (INPUT_DIR / folder).is_dir():
+                missing_subfolders.append(folder)
+
+        if missing_subfolders:
+            print(f"Error: The provided path must be a parent to the following missing subfolders: {', '.join(missing_subfolders)}\n")
+            print("Please try again or exit by pressing Ctrl+C\n")
+            continue
+            
+        break # Path is valid, exit the loop
         
     print(f"Scanning {INPUT_DIR} for images...")
     # Grab all .jpg files across all 11 class subdirectories
@@ -131,7 +151,7 @@ def main():
     print(f"\nCompleted Full Dataset Pipeline!\n")
     print(f"Successfully processed {successful}/{len(image_files)} images.")
     print(f"Total Time taken: {end_time - start_time:.2f} seconds.\n")
-    print(f"All outputs are located neatly inside: {OUTPUT_DIR}")
+    print(f"All outputs are located neatly inside: {OUTPUT_DIR}\n")
 
 if __name__ == "__main__":
     main()
