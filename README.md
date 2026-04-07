@@ -37,3 +37,4 @@
 =======
 - [Methodology](https://docs.google.com/document/d/1VenZA1XjZP3SekQ-6iAjmpiX-FknLspF6BAyd0LLF2o/edit?usp=sharing)
 >>>>>>> abccf47a2e759a4887ad0b845dcbe597464ed260
+- [Google Colab](https://colab.research.google.com/drive/1OnA-ZAt7diH8c398zmSrJKD1T0nzfjgT?usp=sharing)
