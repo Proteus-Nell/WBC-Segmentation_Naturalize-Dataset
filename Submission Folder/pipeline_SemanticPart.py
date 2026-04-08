@@ -5,7 +5,7 @@ Notably seen in the following subfolders: BNE, MY, MMY, PMY, SNE
 
 Perform the following for the code to work:
 - Adjust the DATASET_PATH variable to point to the correct location of the dataset. (located in the main function)
-- Outputs will be saved in a subfolder of the folder containing the scripts called: "\student_mask".
+- Outputs will be saved in a subfolder of the folder containing the scripts called: "student_mask".
 - Adjust the multiprocessing part, specifically the variable "cores_to_use" depending on your device specifications, by default it uses half your CPU cores.
 """
 
@@ -68,12 +68,7 @@ def process_single_image(args):
             if area > 1000:
                 cv2.drawContours(cleaned_mask, [contour], -1, 255, thickness=-1)
     # =============================================================================
-                
-    # 6. Apply White Background
-    final_output = img.copy()
-    final_output[cleaned_mask == 0] = [255, 255, 255]
-    
-    # 7. Save to disk maintaining folder structure and adding _mymask
+    # 6. Save the Black & White Mask to disk maintaining folder structure and adding _mymask
     class_name = img_path.parent.name 
     save_dir = Path(out_dir) / class_name
     save_dir.mkdir(parents=True, exist_ok=True)
@@ -82,7 +77,7 @@ def process_single_image(args):
     save_path = save_dir / new_name
     
     # Suppress output to prevent terminal from freezing when processing 16k files
-    cv2.imwrite(str(save_path), final_output)
+    cv2.imwrite(str(save_path), cleaned_mask)
     return True
 
 def main():
