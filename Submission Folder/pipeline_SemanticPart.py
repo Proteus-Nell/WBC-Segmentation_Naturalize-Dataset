@@ -1,7 +1,7 @@
 """
 This program is intended for segmenting the entire dataset and running them through the Black Box NN SDK.
-We're only utilizing the .jpg as they're the predominant files and therefore we surmise it is the original in comparison to the .png.
-Notably seen in the following subfolders: BNE, MY, MMY, PMY, SNE
+We prioritize processing .png files natively in BNE, MY, MMY, PMY, & SNE to ensure highest mask quality,
+and fall back to .jpg variants if a .png equivalent isn't found. The remaining folders heavily rely on .jpg.
 
 Perform the following for the code to work:
 - Adjust the DATASET_PATH variable to point to the correct location of the dataset. (located in the main function)
@@ -115,8 +115,25 @@ def main():
         break # Path is valid, exit the loop
         
     print(f"Scanning {INPUT_DIR} for images...")
-    # Grab all .jpg files across all 11 class subdirectories
-    image_files = list(INPUT_DIR.rglob("*.jpg"))
+    
+    target_subfolders = {"BNE", "MY", "MMY", "PMY", "SNE"}
+    image_files = []
+    
+    for folder in required_subfolders:
+        folder_path = INPUT_DIR / folder
+        if folder in target_subfolders:
+            # Prioritize .png over .jpg
+            png_files = list(folder_path.glob("*.png"))
+            jpg_files = list(folder_path.glob("*.jpg"))
+            
+            # Enforce priority: if .png exists, don't use the equivalent .jpg
+            png_stems = {p.stem for p in png_files}
+            
+            image_files.extend(png_files)
+            image_files.extend([p for p in jpg_files if p.stem not in png_stems])
+        else:
+            # Fall back to .jpg for the remaining class folders
+            image_files.extend(list(folder_path.glob("*.jpg")))
     
     if not image_files:
         print("No images found! Check the path.")

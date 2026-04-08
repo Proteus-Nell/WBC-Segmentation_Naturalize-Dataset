@@ -122,7 +122,8 @@ def main():
         DATASET_PATH = Path(DATASET_PATH).resolve() # Added .resolve() to ensure the path is absolute thanks to AI :P
 
         if not DATASET_PATH.exists() or not DATASET_PATH.is_dir():
-            print(f"Error: The provided path '{DATASET_PATH}' does not exist or is not a directory.\nPlease try again.\n")
+            print(f"Error: The provided path '{DATASET_PATH}' does not exist or is not a directory.")
+            print("Please try again or exit by pressing Ctrl+C\n")
             continue
 
         missing_subfolders = []
@@ -131,7 +132,8 @@ def main():
                 missing_subfolders.append(folder)
 
         if missing_subfolders:
-            print(f"Error: The provided path must be a parent to the following missing subfolders: {', '.join(missing_subfolders)}\nPlease try again.\n")
+            print(f"Error: The provided path must be a parent to the following missing subfolders: {', '.join(missing_subfolders)}\n")
+            print("Please try again or exit by pressing Ctrl+C\n")
             continue
             
         break # Path is valid, exit the loop
@@ -164,8 +166,15 @@ def main():
         print(f"\nProcessing {difficulty.upper()} images...")
         
         for index, img_string in enumerate(img_paths, 1):
-            # Convert the string to a guaranteed absolute path based on where the script is located
-            img_path = SCRIPT_DIR / img_string
+            # img_string is already an absolute path
+            img_path = img_string
+            
+            # Prioritize .png for specific subfolders
+            target_subfolders = {"BNE", "MY", "MMY", "PMY", "SNE"}
+            if img_path.parent.name in target_subfolders:
+                png_version = img_path.with_suffix('.png')
+                if png_version.exists():
+                    img_path = png_version
             
             # Print the filename (e.g. 'BA 2k-PBC Train (58).jpg')
             print(f" -> {img_path.name}")
