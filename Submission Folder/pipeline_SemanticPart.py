@@ -38,7 +38,7 @@ def process_single_image(args):
     # Main Image Processing Component
     # =============================================================================
     # 2. Conversion to LAB
-    lab_image = cv2.cvtColor(img, cv2.COLOR_BGR2LAB)
+    lab_image = cv2.cvtColor(img, cv2.COLOR_BGR2LUV)
     
     # 3. Bilateral Noise Reduction
     denoised_img = cv2.bilateralFilter(lab_image, 55, 150, 150)
@@ -58,15 +58,19 @@ def process_single_image(args):
     mask = np.where(labels_flat == fg_cluster, 255, 0).astype(np.uint8)
     raw_mask = mask.reshape(img.shape[:2])
     
-    # 5. Contour Filtering
-    contours, _ = cv2.findContours(raw_mask, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
+    # 5. Contour Filtering or Closing
+    # contours, _ = cv2.findContours(raw_mask, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
+    # 
+    # cleaned_mask = np.zeros_like(raw_mask)
+    # if contours:
+    #     for contour in contours:
+    #         area = cv2.contourArea(contour)
+    #         if area > 1000:
+    #             cv2.drawContours(cleaned_mask, [contour], -1, 255, thickness=-1)
     
-    cleaned_mask = np.zeros_like(raw_mask)
-    if contours:
-        for contour in contours:
-            area = cv2.contourArea(contour)
-            if area > 1000:
-                cv2.drawContours(cleaned_mask, [contour], -1, 255, thickness=-1)
+    # Applying Binary Closing instead
+    kernel = cv2.getStructuringElement(cv2.MORPH_ELLIPSE, (15, 15))
+    cleaned_mask = cv2.morphologyEx(raw_mask, cv2.MORPH_CLOSE, kernel)
     # =============================================================================
     # 6. Save the Black & White Mask to disk maintaining folder structure and adding _mymask
     class_name = img_path.parent.name 
