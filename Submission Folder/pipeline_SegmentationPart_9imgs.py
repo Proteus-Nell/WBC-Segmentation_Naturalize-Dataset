@@ -51,7 +51,7 @@ def process_single_image(img_path, base_out_dir, difficulty, index):
     mask = np.where(labels_flat == fg_cluster, 255, 0).astype(np.uint8)
     raw_mask = mask.reshape(img.shape[:2])
     
-    # 5. Contour Filtering
+    # 5. Contour Filtering or Closing
     contours, _ = cv2.findContours(raw_mask, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
     
     cleaned_mask = np.zeros_like(raw_mask)
